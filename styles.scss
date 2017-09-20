@@ -1,0 +1,67 @@
+.c-product-sticky-nav {
+    background-color: white;
+    height: 45px;
+    width: 100%;
+    box-shadow: 5px 5px 8px 2px rgba(74,74,74, 0.25);
+    position: relative;
+    z-index: 15;
+
+    & ul {
+        display: flex;
+        margin: 10px 0px;
+
+        > li {
+            display: block;
+            font-weight:500;
+
+            a {
+                margin-right: 55px;
+                color: $gray-text;
+                padding-bottom:7px;
+
+                &:hover {
+                    color: $blue-electric;
+                    border-bottom: 5px solid $blue-electric;
+                }
+            }
+        }
+    }
+
+    &.sticky {
+        top: 0;
+    }
+
+    .navbar-nav {
+        justify-content: left;
+    }
+}
+
+.c-product-level-blade {
+    &_button {
+        position: relative;
+        border: none;
+        background: none;
+        color: $blue-electric;
+        text-decoration: none;
+        width: 100%;
+        text-align: left;
+        margin: 8px 0px;
+        padding:0 16px;
+
+        &:focus {
+            outline: none;
+        }
+
+        h2 {
+            display: inline-block;
+            margin-left: 10px;
+            margin-bottom: 0px;
+            color: $blue-electric;
+        }
+    }
+}
+ 
+.active-sticky-link {
+    color: $blue-electric !important;
+    border-bottom: 5px solid $blue-electric;
+}

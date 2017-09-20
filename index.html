@@ -1,0 +1,160 @@
+@* SET UP FOR DESKTOP START *@
+@*Sticky Nav*@
+<div class="hidden-xs hidden-sm" >
+    <nav class="c-product-sticky-nav" role="navigation" id="sticky-nav">
+        <div class="container">
+            <ul class="c-product-sticky-nav-ul">
+                <li class="dropdown menu-large"><a href="#section1" >Features</a></li>
+                <li class="dropdown menu-large"><a href="#section2" >Benefits</a></li>
+                <li class="dropdown menu-large"><a href="#section3" >Case Study</a></li>
+                <li class="dropdown menu-large"><a href="#section4" >Platform</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    @*Features*@
+    <section class="background-dark padding-md-def-sm-def features-tiles" id="section1">
+        <a name="features"></a>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-push-2 text-center">
+                    <h2>@Model.Content.GetPropertyValue("featuresHeadline")</h2>
+                    @Html.Raw(Model.Content.GetPropertyValue("featuresCopy"))
+                </div>
+            </div>
+            @{
+                var featureTiles = Model.Content.GetPropertyValue<IList<IPublishedContent>>("featureTiles");
+            }
+
+            @if (featureTiles != null && featureTiles.Any())
+            {
+                @Html.Partial("~/Views/Partials/NewComponents/Repeaters/grid.cshtml", new GridWrapperModel { ComponentModel = featureTiles, ComponentView = "~/Views/Partials/NewComponents/ComponentFeatureTileWithModal.cshtml", SColumns = 2, MColumns = 4, ComponentSettings = new { } })
+            }
+
+        </div>
+    </section>
+
+
+    @*Benefits*@
+    <section class="container padding-md-def-sm-def" id="section2">
+        <a name="benefits"></a>
+        <div class="row">
+            <div class="col-sm-8 col-sm-push-2 text-center">
+                @Html.Raw(Model.Content.GetPropertyValue("benefitsCopy"))
+            </div>
+        </div>
+    @{
+        var benefitsBlade = Model.Content.GetPropertyValue<IList<IPublishedContent>>("benefitsBlade");
+    }
+    @if (benefitsBlade != null && benefitsBlade.Any())
+    { 
+        <div class="padding-sm-def-sm-def">
+            @Html.Partial("~/views/partials/newcomponents/ComponentTabbedBenefitsBlade.cshtml", benefitsBlade.First())
+        </div>
+    }
+    </section>
+
+    @*Case Study*@
+    @{
+        var caseStudy = Model.Content.GetPropertyValue<IList<IPublishedContent>>("caseStudy", new List<IPublishedContent>());
+    }
+    <section id="section3">
+        @if (caseStudy != null && caseStudy.Any())
+        {
+            <a name="casestudy"></a>
+            @Html.Partial("~/views/partials/newcomponents/componentcasestudyblade.cshtml", caseStudy.First())
+        }
+    </section>
+    @*Plaform Blade*@
+    @{
+        var platformBlade = Model.Content.GetPropertyValue<IPublishedContent>("platform");
+    }
+    <section id="section4">
+        @if (platformBlade != null)
+        {
+            <a name="platform"></a>
+            @Html.Partial("~/views/partials/newcomponents/" + platformBlade.DocumentTypeAlias + ".cshtml", platformBlade)
+        }
+    </section>
+ </div>
+
+@* END FOR DESKTOP START *@
+
+@* SET UP FOR MOBILE START *@
+
+<div class="hidden-md hidden-lg">
+
+    @*Features*@
+    <div class="container">
+        <a name="features"></a>
+        <button class="c-product-level-blade_button" type="button" data-toggle="collapse" data-target="#feature-accordion" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <h2>Features</h2>
+        </button>
+        <div class="container collapse features" id="feature-accordion">
+            <div class="row">
+                <div class="col-sm-8 col-sm-push-2 text-center-sm copy-wrapper">
+                    @Html.Raw(Model.Content.GetPropertyValue("featuresCopy"))
+                </div>
+            </div>
+            @if (featureTiles != null && featureTiles.Any())
+            {
+                @Html.Partial("~/Views/Partials/NewComponents/Repeaters/grid.cshtml", new GridWrapperModel { ComponentModel = featureTiles, ComponentView = "~/Views/Partials/NewComponents/ComponentFeatureTileWithModal.cshtml", SColumns = 2, MColumns = 4, ComponentSettings = new { } })
+            }
+        </div>
+    </div>
+
+
+    @*Benefits*@
+    <div class="container">
+        <a name="benefits"></a>
+        <button class="c-product-level-blade_button" type="button" data-toggle="collapse" data-target="#benefit-accordion" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <h2>Benefits</h2>
+        </button>
+    </div>
+    <div class="container collapse benefits" id="benefit-accordion">
+        <div class="copy-wrapper">
+            @Html.Raw(Model.Content.GetPropertyValue("benefitsCopy"))
+        </div>
+        @if (benefitsBlade != null && benefitsBlade.Any())
+        { <div class="padding-def-def-sm-def">
+            @Html.Partial("~/views/partials/newcomponents/ComponentTabbedBenefitsBlade.cshtml", benefitsBlade.First())
+        </div>
+        }
+        </div>
+
+        @*Case Study*@
+    <div class="container">
+        <button class="c-product-level-blade_button" type="button" data-toggle="collapse" data-target="#case-study-accordion" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <h2>Case Study</h2>
+        </button>
+        </div>
+        <div class="container collapse" id="case-study-accordion">
+            @if (caseStudy != null && caseStudy.Any())
+
+            {
+                <a name="casestudy"></a>
+                @Html.Partial("~/views/partials/newcomponents/componentcasestudyblade.cshtml", caseStudy.First())
+            }
+        </div>
+
+        @*Plaform Blade*@
+        <div class="container">
+            <button class="c-product-level-blade_button" type="button" data-toggle="collapse" data-target="#platform-accordion" aria-expanded="false" aria-controls="collapseExample" id="platform-button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <h2>Platform</h2>
+            </button>
+        </div>
+        <div class="container collapse" id="platform-accordion">
+            @if (platformBlade != null)
+            {
+                <a name="platform"></a>
+                @Html.Partial("~/views/partials/newcomponents/" + platformBlade.DocumentTypeAlias + ".cshtml", platformBlade)
+            }
+        </div>
+    </div>
+
+@* END FOR MOBILE START *@
